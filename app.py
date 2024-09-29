@@ -5,7 +5,7 @@ from datetime import datetime
 #import matplotlib.pyplot as plt
 
 DF_SIZE = 40 # define size of square dataframe
-SLEEP_TIME = 0.1 # define sleep time in seconds
+SLEEP_TIME = 0 # define sleep time in seconds - don't bother sleeping because it's already slow
 
 # count iterations
 num_generations = 0
