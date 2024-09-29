@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 from time import sleep
 from datetime import datetime
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 DF_SIZE = 40 # define size of square dataframe
-SLEEP_TIME = 0.5 # define sleep time in seconds
+SLEEP_TIME = 0.1 # define sleep time in seconds
 
 # count iterations
 num_generations = 0
@@ -31,14 +31,19 @@ def update(orig_df):
             updated_df.iloc[row, col] = update_cell(orig_df, row, col)
     return updated_df
 
+def render_df(df):
+    rendered_df = df.copy()
+    rendered_df = rendered_df.replace({1: 'X', 0: ' '})
+    return rendered_df
+
 while True:
     print(datetime.now())
     print(f"Generation {num_generations}")
     print(f"Number of live cells: {np.sum(df.values)}")
-    print(df)
-    plt.imshow(df, cmap='binary')
-    plt.title(f"Generation {num_generations}")
-    plt.show()
+    print(render_df(df).to_string(index=False, header=False))
+    #plt.imshow(df, cmap='binary')
+    #plt.title(f"Generation {num_generations}")
+    #plt.show()
     df = update(df)
     num_generations += 1
     sleep(SLEEP_TIME)
