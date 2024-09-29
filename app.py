@@ -10,6 +10,11 @@ SLEEP_TIME = 0 # define sleep time in seconds - don't bother sleeping because it
 # count iterations
 num_generations = 0
 
+# figure out if game has "stabilized" - if the game has kept the same number of cells for MAX_STABILIZED generations, then end the game
+# this might never happen, because sometimes cells can keep bouncing back and forth
+MAX_STABILIZED = 10
+cell_history = []
+
 # create a dataframe with random 1s and 0s based on PD_SIZE
 df = pd.DataFrame(np.random.randint(0, 2, size=(DF_SIZE, DF_SIZE)))
 
@@ -39,8 +44,15 @@ def render_df(df):
 while True:
     print(datetime.now())
     print(f"Generation {num_generations}")
-    print(f"Number of live cells: {np.sum(df.values)}")
+    live_cells = np.sum(df.values)
+    print(f"Number of live cells: {live_cells}")
     print(render_df(df).to_string(index=False, header=False))
+    cell_history.append(live_cells)
+
+    if len(cell_history) > MAX_STABILIZED:
+        if len(set(cell_history[-MAX_STABILIZED:])) == 1:
+            print(f"Game stabilized after {num_generations} generations.")
+            break  # Exit the loop if stabilized  
     #plt.imshow(df, cmap='binary')
     #plt.title(f"Generation {num_generations}")
     #plt.show()
