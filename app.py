@@ -4,11 +4,13 @@ from time import sleep
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-DF_SIZE = 30 # define size of square dataframe
-SLEEP_TIME = 1 # define sleep time in seconds
+DF_SIZE = 40 # define size of square dataframe
+SLEEP_TIME = 0.5 # define sleep time in seconds
 
 # count iterations
 num_generations = 0
+
+# count "live" cells
 
 # create a dataframe with random 1s and 0s based on PD_SIZE
 df = pd.DataFrame(np.random.randint(0, 2, size=(DF_SIZE, DF_SIZE)))
@@ -34,6 +36,7 @@ def update(orig_df):
 while True:
     print(datetime.now())
     print(f"Generation {num_generations}")
+    print(f"Number of live cells: {np.sum(df.values)}")
     print(df)
     plt.imshow(df, cmap='binary')
     plt.title(f"Generation {num_generations}")
