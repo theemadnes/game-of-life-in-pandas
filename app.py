@@ -50,9 +50,12 @@ while True:
     cell_history.append(live_cells)
 
     if len(cell_history) > MAX_STABILIZED:
+        #print(cell_history)
+        #print(len(cell_history))
         if len(set(cell_history[-MAX_STABILIZED:])) == 1:
             print(f"Game stabilized after {num_generations} generations.")
             break  # Exit the loop if stabilized  
+        cell_history.pop(0) # remove first item to prevent from growing indefinitely
     #plt.imshow(df, cmap='binary')
     #plt.title(f"Generation {num_generations}")
     #plt.show()
