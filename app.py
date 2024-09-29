@@ -10,8 +10,6 @@ SLEEP_TIME = 0.5 # define sleep time in seconds
 # count iterations
 num_generations = 0
 
-# count "live" cells
-
 # create a dataframe with random 1s and 0s based on PD_SIZE
 df = pd.DataFrame(np.random.randint(0, 2, size=(DF_SIZE, DF_SIZE)))
 
